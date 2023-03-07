@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <div>
+        <form action="">
+            <div class="cont-from">
+                <label for="from">From: </label>
+                <input class="from" type="text" list="currency-from" placeholder="Ex: EUR, USD, DZD">
+                <datalist class="currency" id="currency-from">
+                </datalist>
+            </div>
+            <div class="cont-to">
+                <label for="to">To: </label>
+                <input class="to" type="text" list="currency-to" placeholder="Ex: JPY, GBP, EGY">
+                <datalist class="currency" id="currency-to">
+                </datalist>
+            </div>
+            <div class="cont-amount">
+                <label for="amount">Amount: </label>
+                <input type="number" id="amount">
+            </div>
+            <input id="button" type="button" value="Convert">
+            <span></span>
+        </form>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
