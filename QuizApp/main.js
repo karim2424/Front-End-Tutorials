@@ -2,7 +2,10 @@ function getDataNonAsync() {
   fetch("QandA.json")
     .then((response) => response.json())
     .then((result) => {
-      console.log(result["answers"]);
+      return result["answers"];
+    })
+    .then((re) => {
+      console.log(re[2]);
     })
     .catch((error) => {
       console.log(error);
