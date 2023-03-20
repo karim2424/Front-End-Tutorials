@@ -5,7 +5,6 @@ function getData() {
       return result;
     })
     .then((jsonResult) => {
-      // let myCategory = Object.keys(jsonResult)
       let randomQuetsion = Math.floor(
         Math.random() * jsonResult["questions"].length
       );
@@ -19,17 +18,26 @@ function getData() {
         if (randomAnswer === randomNumber) {
           continue;
         } else {
-          let select = document.createElement("select");
-          let option = document.createElement("option");
-          let optionValue = document.createAttribute("value");
-          let optionText = document.createTextNode(
+          let input = document.createElement("input");
+          let lable = document.createElement("lable");
+          let inputValue = document.createAttribute("value");
+          inputValue.value = jsonResult["answers"][randomNumber];
+          input.setAttributeNode(inputValue);
+          let inputType = document.createAttribute("type");
+          inputType.value = "checkbox";
+          input.setAttributeNode(inputType);
+          let inputName = document.createAttribute("name");
+          inputName.value = "answers";
+          input.setAttributeNode(inputName);
+          let lableFor = document.createAttribute("for");
+          lableFor.value = jsonResult["answers"][randomNumber];
+          lable.setAttributeNode(lableFor);
+          let lableText = document.createTextNode(
             jsonResult["answers"][randomNumber]
           );
-          optionValue.value = jsonResult["answers"][randomNumber];
-          option.setAttributeNode(optionValue);
-          option.appendChild(optionText);
-          select.appendChild(option);
-          document.querySelector("body").appendChild(select);
+          lable.appendChild(lableText);
+          document.body.appendChild(input);
+          document.body.appendChild(lable);
         }
       }
     })
