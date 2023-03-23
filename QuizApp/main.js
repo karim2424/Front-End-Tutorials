@@ -1,6 +1,7 @@
 let myQuestion = document.querySelector(".quiz-one .question");
 let myAnswers = document.querySelectorAll(".quiz-one input");
-let myArr = [];
+let myAnswersLabel = document.querySelectorAll(".quiz-one label");
+let mySet = new Set();
 function getData() {
   fetch("QandA.json")
     .then((response) => response.json())
@@ -8,25 +9,39 @@ function getData() {
       return result;
     })
     .then((jsonResult) => {
-      let randomQuetsion = Math.floor(
+      let randomQuestion = Math.floor(
         Math.random() * jsonResult["questions"].length
       );
-      myQuestion.innerHTML = jsonResult["questions"][randomQuetsion];
+      myQuestion.innerHTML = jsonResult["questions"][randomQuestion];
       let randomAnswer = Math.floor(
         Math.random() * jsonResult["answers"].length
       );
-      myAnswers[randomAnswer].innerHTML = jsonResult["answers"][randomQuetsion];
-      for (let i = 0; i < 3; i++) {
+      let gen = Math.floor(Math.random() * 4);
+      myAnswers[gen].setAttribute(
+        "value",
+        jsonResult["answers"][randomQuestion]
+      );
+      myAnswersLabel[gen].innerHTML = jsonResult["answers"][randomQuestion];
+      while (mySet.size < 4) {
         let randomNumber = Math.floor(
           Math.random() * jsonResult["answers"].length
         );
-        if (randomQuetsion === randomNumber) {
-          continue;
+        if (randomNumber !== randomQuestion) {
+          mySet.add(randomNumber);
         } else {
-          if ((myAnswers[randomNumber].innerHTML = "")) {
-          }
+          continue;
         }
       }
+      let myArr = Array.from(mySet);
+      let i = 0;
+      myAnswersLabel.forEach((asw) => {
+        if (asw.innerHTML === "" && myAnswers[i].value === "") {
+          asw.innerHTML = jsonResult["answers"][myArr[i]];
+          myAnswers[i].setAttribute("value", jsonResult["answers"][myArr[i]]);
+          console.log(i);
+        }
+        ++i;
+      });
     })
     .catch((error) => {
       console.log(error);
@@ -67,3 +82,15 @@ getData();
 // lable.appendChild(lableText);
 // document.body.appendChild(input);
 // document.body.appendChild(lable);
+
+// for (let i = 0; i < 3; i++) {
+//         let randomNumber = Math.floor(
+//           Math.random() * jsonResult["answers"].length
+//         );
+//         if (randomQuetsion === randomNumber) {
+//           continue;
+//         } else {
+//           if ((myAnswers[randomNumber].innerHTML = "")) {
+//           }
+//         }
+//       }
