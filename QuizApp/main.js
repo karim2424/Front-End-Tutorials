@@ -1,5 +1,6 @@
 let myQuestion = document.querySelector(".quiz-one .question");
 let myAnswers = document.querySelectorAll(".quiz-one input");
+let myArr = [];
 function getData() {
   fetch("QandA.json")
     .then((response) => response.json())
