@@ -38,11 +38,7 @@ function getData() {
         }
         ++i;
       });
-      myAnswers.forEach((inp) => {
-        inp.addEventListener("click", () => {
-          let chosenAnswer = myAnswers.value;
-        });
-      });
+      function checkAnswer(answer) {}
     })
     .catch((error) => {
       console.log(error);
@@ -52,7 +48,12 @@ getData();
 
 myAnswers.forEach((inp) => {
   inp.addEventListener("click", () => {
-    let chosenAnswer = myAnswers.value;
+    let chosenAnswer = inp.value;
+    myAnswers.forEach((inpp) => {
+      inpp.checked = false;
+    });
+    inp.checked = true;
+    chosenAnswer(chosenAnswer);
   });
 });
 // async function getData() {
