@@ -13,9 +13,6 @@ function getData() {
         Math.random() * jsonResult["questions"].length
       );
       myQuestion.innerHTML = jsonResult["questions"][randomQuestion];
-      let randomAnswer = Math.floor(
-        Math.random() * jsonResult["answers"].length
-      );
       let gen = Math.floor(Math.random() * 4);
       myAnswers[gen].setAttribute(
         "value",
@@ -38,9 +35,13 @@ function getData() {
         if (asw.innerHTML === "" && myAnswers[i].value === "") {
           asw.innerHTML = jsonResult["answers"][myArr[i]];
           myAnswers[i].setAttribute("value", jsonResult["answers"][myArr[i]]);
-          console.log(i);
         }
         ++i;
+      });
+      myAnswers.forEach((inp) => {
+        inp.addEventListener("click", () => {
+          let chosenAnswer = myAnswers.value;
+        });
       });
     })
     .catch((error) => {
@@ -48,6 +49,12 @@ function getData() {
     });
 }
 getData();
+
+myAnswers.forEach((inp) => {
+  inp.addEventListener("click", () => {
+    let chosenAnswer = myAnswers.value;
+  });
+});
 // async function getData() {
 //   try {
 //     let result = await fetch("QandA.json");
