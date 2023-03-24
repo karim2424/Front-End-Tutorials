@@ -38,7 +38,23 @@ function getData() {
         }
         ++i;
       });
-      function checkAnswer(answer) {}
+      myAnswers.forEach((inp) => {
+        inp.addEventListener("click", () => {
+          let chosenAnswer = inp.value;
+          myAnswers.forEach((inpp) => {
+            inpp.checked = false;
+          });
+          inp.checked = true;
+          checkAnswer(chosenAnswer);
+        });
+      });
+      function checkAnswer(answer) {
+        if (answer === jsonResult["answers"][randomQuestion]) {
+          console.log("correct");
+        } else {
+          console.log("wrong try again");
+        }
+      }
     })
     .catch((error) => {
       console.log(error);
@@ -46,16 +62,6 @@ function getData() {
 }
 getData();
 
-myAnswers.forEach((inp) => {
-  inp.addEventListener("click", () => {
-    let chosenAnswer = inp.value;
-    myAnswers.forEach((inpp) => {
-      inpp.checked = false;
-    });
-    inp.checked = true;
-    chosenAnswer(chosenAnswer);
-  });
-});
 // async function getData() {
 //   try {
 //     let result = await fetch("QandA.json");
