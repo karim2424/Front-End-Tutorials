@@ -1,3 +1,7 @@
+* {
+margin: 0;
+box-sizing: border-box;
+}
 .container{
     margin: 20px auto;
     width: 400px;
@@ -5,6 +9,10 @@
 .quiz-one{
     display: flex;
     align-items: center;
-    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
+}
+
+.quiz-one h3{
+    align-self: center;
 }
