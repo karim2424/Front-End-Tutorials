@@ -10,11 +10,9 @@ function getData() {
     })
     .then((jsonResult) => {
       let myQuestionArr = jsonResult["questions"];
-      console.log(myQuestionArr);
       let randomQuestion = Math.floor(Math.random() * myQuestionArr.length);
       myQuestion.innerHTML = myQuestionArr[randomQuestion];
       myQuestionArr.splice(randomQuestion, 1);
-      console.log(myQuestionArr);
       let gen = Math.floor(Math.random() * 4);
       myAnswers[gen].setAttribute(
         "value",
@@ -40,6 +38,7 @@ function getData() {
         }
         ++i;
       });
+      function createButton() {}
       myAnswers.forEach((inp) => {
         inp.addEventListener("click", () => {
           let chosenAnswer = inp.value;
@@ -48,6 +47,7 @@ function getData() {
           });
           inp.checked = true;
           checkAnswer(chosenAnswer);
+          createButton();
         });
       });
       function checkAnswer(answer) {
