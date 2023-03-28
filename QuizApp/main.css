@@ -11,8 +11,13 @@ box-sizing: border-box;
     align-items: center;
     align-items: flex-start;
     flex-direction: column;
+    gap: 10px;
 }
 
 .quiz-one h3{
     align-self: center;
+}
+
+.my-button{
+    align-self: flex-end;
 }

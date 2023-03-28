@@ -38,7 +38,12 @@ function getData() {
         }
         ++i;
       });
-      function createButton() {}
+      function createButton() {
+        let button = document.createElement("button");
+        button.className = "my-button";
+        button.innerHTML = "next";
+        document.querySelector(".quiz-one").appendChild(button);
+      }
       myAnswers.forEach((inp) => {
         inp.addEventListener("click", () => {
           let chosenAnswer = inp.value;
