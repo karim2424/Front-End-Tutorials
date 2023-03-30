@@ -20,4 +20,5 @@ box-sizing: border-box;
 
 .my-button{
     align-self: flex-end;
+    display: none;
 }

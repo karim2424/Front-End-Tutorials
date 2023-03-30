@@ -9,16 +9,12 @@ function getData() {
       return result;
     })
     .then((jsonResult) => {
-      let myQuestionArr = jsonResult["questions"];
-      let randomQuestion = Math.floor(Math.random() * myQuestionArr.length);
-      myQuestion.innerHTML = myQuestionArr[randomQuestion];
-      myQuestionArr.splice(randomQuestion, 1);
+      let myQuestionArr = jsonResult;
+      let randomQuestion = Math.floor(Math.random() * jsonResult.length);
+      myQuestion.innerHTML = myQuestionArr[randomQuestion]["title"];
       let gen = Math.floor(Math.random() * 4);
-      myAnswers[gen].setAttribute(
-        "value",
-        jsonResult["answers"][randomQuestion]
-      );
-      myAnswersLabel[gen].innerHTML = jsonResult["answers"][randomQuestion];
+      myAnswers[gen].setAttribute("value", jsonResult[randomQuestion]["rAsw"]);
+      myAnswersLabel[gen].innerHTML = jsonResult[randomQuestion]["rAsw"];
       while (mySet.size < 4) {
         let randomNumber = Math.floor(
           Math.random() * jsonResult["answers"].length
@@ -39,10 +35,47 @@ function getData() {
         ++i;
       });
       function createButton() {
-        let button = document.createElement("button");
-        button.className = "my-button";
-        button.innerHTML = "next";
-        document.querySelector(".quiz-one").appendChild(button);
+        myQuestionArr.splice(randomQuestion, 1);
+        let button = document.querySelector("button");
+        button.style.display = "block";
+        button.addEventListener("click", () => {
+          if (myQuestionArr.length > 0) {
+            myQuestionArr.splice(randomQuestion, 1);
+            let randomQuestion = Math.floor(
+              Math.random() * myQuestionArr.length
+            );
+            myQuestion.innerHTML = myQuestionArr[randomQuestion];
+            let gen = Math.floor(Math.random() * 4);
+            myAnswers[gen].setAttribute(
+              "value",
+              jsonResult["answers"][randomQuestion]
+            );
+            myAnswersLabel[gen].innerHTML =
+              jsonResult["answers"][randomQuestion];
+            while (mySet.size < 4) {
+              let randomNumber = Math.floor(
+                Math.random() * jsonResult["answers"].length
+              );
+              if (randomNumber !== randomQuestion) {
+                mySet.add(randomNumber);
+              } else {
+                continue;
+              }
+            }
+            let myArr = Array.from(mySet);
+            let i = 0;
+            myAnswersLabel.forEach((asw) => {
+              if (asw.innerHTML === "" && myAnswers[i].value === "") {
+                asw.innerHTML = jsonResult["answers"][myArr[i]];
+                myAnswers[i].setAttribute(
+                  "value",
+                  jsonResult["answers"][myArr[i]]
+                );
+              }
+              ++i;
+            });
+          }
+        });
       }
       myAnswers.forEach((inp) => {
         inp.addEventListener("click", () => {
