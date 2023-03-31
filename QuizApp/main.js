@@ -12,28 +12,32 @@ function getData() {
       let myQuestionArr = jsonResult;
       let randomQuestion = Math.floor(Math.random() * jsonResult.length);
       myQuestion.innerHTML = myQuestionArr[randomQuestion]["title"];
-      let gen = Math.floor(Math.random() * 4);
-      myAnswers[gen].setAttribute("value", jsonResult[randomQuestion]["rAsw"]);
-      myAnswersLabel[gen].innerHTML = jsonResult[randomQuestion]["rAsw"];
+      // let gen = Math.floor(Math.random() * 4);
+      // myAnswers[gen].setAttribute("value", jsonResult[randomQuestion]["rAsw"]);
+      // myAnswersLabel[gen].innerHTML = jsonResult[randomQuestion]["rAsw"];
       while (mySet.size < 4) {
-        let randomNumber = Math.floor(
-          Math.random() * jsonResult["answers"].length
-        );
-        if (randomNumber !== randomQuestion) {
-          mySet.add(randomNumber);
-        } else {
-          continue;
-        }
+        let randomNumber = Math.floor(Math.random() * 4);
+        mySet.add(randomNumber);
       }
       let myArr = Array.from(mySet);
-      let i = 0;
-      myAnswersLabel.forEach((asw) => {
-        if (asw.innerHTML === "" && myAnswers[i].value === "") {
-          asw.innerHTML = jsonResult["answers"][myArr[i]];
-          myAnswers[i].setAttribute("value", jsonResult["answers"][myArr[i]]);
-        }
-        ++i;
-      });
+      console.log(myArr);
+      for (let i = 0; i < myAnswersLabel.length; i++) {
+        myAnswersLabel[myArr[i]].innerHTML =
+          jsonResult[randomQuestion][`asw${i + 1}`];
+        myAnswers[myArr[i]].setAttribute(
+          "value",
+          jsonResult[randomQuestion][`asw${i + 1}`]
+        );
+      }
+      // let i = 0;
+      // myAnswersLabel.forEach((asw) => {
+      //   asw.innerHTML = jsonResult[randomQuestion][`asw${myArr[i]}`];
+      //   myAnswers[i].setAttribute(
+      //     "value",
+      //     jsonResult[randomQuestion][`asw${myArr[i]}`]
+      //   );
+      //   ++i;
+      // });
       function createButton() {
         myQuestionArr.splice(randomQuestion, 1);
         let button = document.querySelector("button");
