@@ -1,9 +1,12 @@
 let myQuestion = document.querySelector(".quiz-one .question");
 let myAnswers = document.querySelectorAll(".quiz-one input");
 let myAnswersLabel = document.querySelectorAll(".quiz-one label");
+let button = document.querySelector(".my-button");
+let buttonResult = document.querySelector(".my-button2");
 let mySet = new Set();
 let myPickedAnswer;
 let theRightAnswer;
+let test;
 function getData() {
   fetch("QandA.json")
     .then((response) => response.json())
@@ -12,9 +15,9 @@ function getData() {
     })
     .then((jsonResult) => {
       let myQuestionArr = jsonResult;
-      let randomQuestion = Math.floor(Math.random() * jsonResult.length);
+      test = jsonResult;
+      let randomQuestion = Math.floor(Math.random() * myQuestionArr.length);
       myQuestion.innerHTML = myQuestionArr[randomQuestion]["title"];
-      myQuestionArr.splice(randomQuestion, 1);
       while (mySet.size < 4) {
         let randomNumber = Math.floor(Math.random() * 4);
         mySet.add(randomNumber);
@@ -29,38 +32,38 @@ function getData() {
         );
       }
       theRightAnswer = myQuestionArr[randomQuestion]["rAsw"];
-      function createButton() {
-        let button = document.querySelector("button");
-        let buttonResult = document.querySelector(".my-button2");
-        button.style.display = "block";
-        button.addEventListener("click", () => {
-          if (myQuestionArr.length !== 0) {
-            myAnswers.forEach((inp) => {
-              inp.checked = false;
-            });
-            let randomQuestions = Math.floor(
-              Math.random() * myQuestionArr.length
-            );
-            randomQuestion = randomQuestions;
+      console.log(myQuestionArr);
 
-            myQuestion.innerHTML = myQuestionArr[randomQuestions]["title"];
-            for (let i = 0; i < myAnswersLabel.length; i++) {
-              myAnswersLabel[myArr[i]].innerHTML =
-                myQuestionArr[randomQuestions][`asw${i + 1}`];
-              myAnswers[myArr[i]].setAttribute(
-                "value",
-                myQuestionArr[randomQuestions][`asw${i + 1}`]
-              );
-            }
-            theRightAnswer = myQuestionArr[randomQuestion]["rAsw"];
-            myQuestionArr.splice(randomQuestions, 1);
-          } else {
-            button.style.display = "none";
-            buttonResult.style.display = "block";
-            buttonResult.addEventListener("click", () => {});
-          }
+      button.addEventListener("click", () => {
+        myAnswers.forEach((inp) => {
+          inp.checked = false;
         });
-      }
+        checkAnswer(myPickedAnswer, theRightAnswer);
+        myQuestionArr.splice(randomQuestion, 1);
+        if (myQuestionArr.length !== 0) {
+          let randomQuestions = Math.floor(
+            Math.random() * myQuestionArr.length
+          );
+          randomQuestion = randomQuestions;
+          myQuestion.innerHTML = myQuestionArr[randomQuestions]["title"];
+          for (let i = 0; i < myAnswersLabel.length; i++) {
+            myAnswersLabel[myArr[i]].innerHTML =
+              myQuestionArr[randomQuestions][`asw${i + 1}`];
+            myAnswers[myArr[i]].setAttribute(
+              "value",
+              myQuestionArr[randomQuestions][`asw${i + 1}`]
+            );
+          }
+          theRightAnswer = myQuestionArr[randomQuestion]["rAsw"];
+          console.log(myQuestionArr);
+        } else {
+          button.style.display = "none";
+          buttonResult.style.display = "block";
+          buttonResult.addEventListener("click", () => {});
+        }
+        button.style.display = "none";
+      });
+
       myAnswers.forEach((inp) => {
         inp.addEventListener("click", () => {
           myPickedAnswer = inp.value;
@@ -68,7 +71,7 @@ function getData() {
             inpp.checked = false;
           });
           inp.checked = true;
-          createButton();
+          button.style.display = "block";
         });
       });
       function checkAnswer(answer, rightAnswer) {
