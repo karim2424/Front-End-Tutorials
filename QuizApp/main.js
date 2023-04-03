@@ -6,7 +6,7 @@ let buttonResult = document.querySelector(".my-button2");
 let mySet = new Set();
 let myPickedAnswer;
 let theRightAnswer;
-let test;
+let count = 0;
 function getData() {
   fetch("QandA.json")
     .then((response) => response.json())
@@ -35,12 +35,17 @@ function getData() {
       console.log(myQuestionArr);
 
       button.addEventListener("click", () => {
+        button.classList.toggle("hide-button");
         myAnswers.forEach((inp) => {
           inp.checked = false;
         });
         checkAnswer(myPickedAnswer, theRightAnswer);
         myQuestionArr.splice(randomQuestion, 1);
-        if (myQuestionArr.length !== 0) {
+        if ((myQuestionArr.length = 0)) {
+          button.classList.add = "hide-button";
+          buttonResult.classList.remove = "hide-button";
+          buttonResult.addEventListener("click", () => {});
+        } else {
           let randomQuestions = Math.floor(
             Math.random() * myQuestionArr.length
           );
@@ -55,23 +60,18 @@ function getData() {
             );
           }
           theRightAnswer = myQuestionArr[randomQuestion]["rAsw"];
-          console.log(myQuestionArr);
-        } else {
-          button.style.display = "none";
-          buttonResult.style.display = "block";
-          buttonResult.addEventListener("click", () => {});
+          console.log(myQuestionArr.length);
         }
-        button.style.display = "none";
       });
 
       myAnswers.forEach((inp) => {
-        inp.addEventListener("click", () => {
+        inp.addEventListener("change", () => {
           myPickedAnswer = inp.value;
           myAnswers.forEach((inpp) => {
             inpp.checked = false;
           });
           inp.checked = true;
-          button.style.display = "block";
+          button.classList.toggle("hide-button");
         });
       });
       function checkAnswer(answer, rightAnswer) {
