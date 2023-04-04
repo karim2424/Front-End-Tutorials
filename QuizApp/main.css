@@ -20,12 +20,26 @@ box-sizing: border-box;
 
 .my-button{
     align-self: flex-end;
+    display:  none;
 }
 
 .my-button2{
     align-self: flex-end;
+    display:  none;
 }
 
-.hide-button{
-    display:  none !important;
+.result{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    -moz-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    -o-transform: translate(-50%,-50%);
+    background-color: rgb(235 235 235);
+    width: 300px;
+    height: 200px;
+    z-index: 20;
+    box-shadow: 0px 0px 8px 2px black ;
 }
