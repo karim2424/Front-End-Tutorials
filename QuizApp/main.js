@@ -50,6 +50,22 @@ function getData() {
             inp.disabled = true;
           });
           checkAnswer(myPickedAnswer, theRightAnswer);
+
+          let div = document.createElement("div");
+          div.classList = "result";
+          let h3 = document.createElement("h3");
+          let h3Text = document.createTextNode(
+            `Your Scour Is : ${((rightCount / 5) * 100).toFixed(2)}%`
+          );
+          let p = document.createElement("p");
+          let pText = document.createTextNode(
+            `You Have ${wrongCount} Wrong Answers`
+          );
+          h3.appendChild(h3Text);
+          p.appendChild(pText);
+          div.appendChild(h3);
+          div.appendChild(p);
+          document.querySelector(".container").appendChild(div);
         });
         // ********************************************* End off add event listener to result button for showing final score *********************************************
 
