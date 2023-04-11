@@ -38,27 +38,51 @@ box-sizing: border-box;
     -ms-transform: translate(-50%,-50%);
     -o-transform: translate(-50%,-50%);
     background-color: rgb(235 235 235);
-    width: 300px;
-    height: 200px;
+    width: 400px;
+    height: 300px;
     z-index: 20;
     box-shadow: 0px 0px 8px 2px black ;
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    text-align: center;
+    padding: 15px;
 }
-
+@keyframes percentCircle {
+    100%{background: conic-gradient(red 170deg, white 170deg)}  
+    }
 .percent-circle{
     position: relative;
     width: 160px;
     height: 160px;
     border-radius: 50%;
-    background: linear-gradient(270deg, black 50%, transparent 50%)
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    transition-property: background-color;
+    transition-duration: .6s;
+    background: white;
+    box-shadow: 3px 3px 8px 1px #bdb7b7, -3px -3px 8px 1px #dddddd;
+    align-self: center;
+    
 }
 
+
 .circle{
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    line-height: 130px;
+    font-weight: bold;
     position: absolute;
-    width: 150px;
-    height: 150px;
+    width: 130px;
+    height: 130px;
     border-radius: 50%;
-    background: white;
+    background: white;   
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    box-shadow: inset 3px 3px 10px 1px #dddddd, inset -3px -3px 10px 1px #dddddd, inset 3px -3px 10px 1px #dddddd, inset -3px 3px 10px 1px #dddddd;
 }
+

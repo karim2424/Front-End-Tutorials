@@ -51,21 +51,48 @@ function getData() {
           });
           checkAnswer(myPickedAnswer, theRightAnswer);
 
-          let div = document.createElement("div");
-          div.classList = "result";
-          let h3 = document.createElement("h3");
-          let h3Text = document.createTextNode(
-            `Your Scour Is : ${((rightCount / 5) * 100).toFixed(2)}%`
-          );
-          let p = document.createElement("p");
+          let divResult = document.querySelector(".result");
+          let circlePercent = document.querySelector(".percent-circle");
+          let percentValueContainer = document.querySelector(".circle");
+          let h3 = document.querySelector(".result h3");
+          let p = document.querySelector(".result p");
+          let h3Text = document.createTextNode(`Your Score Is`);
           let pText = document.createTextNode(
-            `You Have ${wrongCount} Wrong Answers`
+            `You Have ${wrongCount} Wrong answers`
           );
+          let percentValue = Math.floor((rightCount / 5) * 100);
+          let count = 0;
           h3.appendChild(h3Text);
           p.appendChild(pText);
-          div.appendChild(h3);
-          div.appendChild(p);
-          document.querySelector(".container").appendChild(div);
+          divResult.style.display = "flex";
+          let animation = setInterval(() => {
+            if (count === percentValue) {
+              clearInterval(animation);
+            } else {
+              ++count;
+              if (count <= 40) {
+                percentValueContainer.innerHTML = `${count}%`;
+                circlePercent.style.background = `conic-gradient(red ${
+                  count * 3.6
+                }deg, white ${count * 3.6}deg)`;
+              } else if (count <= 60 && count > 40) {
+                percentValueContainer.innerHTML = `${count}%`;
+                circlePercent.style.background = `conic-gradient(orange ${
+                  count * 3.6
+                }deg, white ${count * 3.6}deg)`;
+              } else if (count <= 80 && count > 60) {
+                percentValueContainer.innerHTML = `${count}%`;
+                circlePercent.style.background = `conic-gradient(lightgreen ${
+                  count * 3.6
+                }deg, white ${count * 3.6}deg)`;
+              } else {
+                percentValueContainer.innerHTML = `${count}%`;
+                circlePercent.style.background = `conic-gradient(green ${
+                  count * 3.6
+                }deg, white ${count * 3.6}deg)`;
+              }
+            }
+          }, 20);
         });
         // ********************************************* End off add event listener to result button for showing final score *********************************************
 
